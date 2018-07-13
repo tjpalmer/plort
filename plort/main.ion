@@ -1,5 +1,7 @@
 import libc {printf}
+import gl {...}
 import sdl {...}
+// #foreign(header = "<GLES3/gl3.h>")
 
 func main(argc: int, argv: char**): int {
     printf("Hello, world!\n");
@@ -17,7 +19,28 @@ func main(argc: int, argv: char**): int {
     if (!context) {
         printf("no context for us\n");
     }
-    SDL_Delay(1000);
+    program := glCreateProgram();
+    if (!program) {
+        printf("no program for us\n");
+    }
+    event: SDL_Event;
+    done := false;
+    while (!done) {
+        while (SDL_PollEvent(&event)) {
+            switch (event.type) {
+            case SDL_QUIT:
+                done = true;
+            case SDL_WINDOWEVENT:
+                switch (event.window.event) {
+                case SDL_WINDOWEVENT_RESIZED:
+                    // printf("resize\n");
+                }
+            }
+        }
+        // TODO Timer.
+        // TODO Animate.
+        // paint(window);
+    }
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();

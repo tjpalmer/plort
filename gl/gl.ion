@@ -1,0 +1,5 @@
+@foreign
+typedef GLuint = uint;
+
+@foreign
+func glCreateProgram(): GLuint;
