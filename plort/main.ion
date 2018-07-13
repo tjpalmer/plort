@@ -6,6 +6,7 @@ func main(argc: int, argv: char**): int {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("failed to init sdl: %s\n", SDL_GetError());
     }
+    initGles3();
     window := SDL_CreateWindow(
         "Hello",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -37,7 +38,8 @@ func initGles3() {
         printf("failed to set gles\n");
     }
     if (SDL_GL_SetAttribute(
-        SDL_GLattr(SDL_GL_CONTEXT_MAJOR_VERSION), 2
+        // TODO Why doesn't GLES 2 work?
+        SDL_GLattr(SDL_GL_CONTEXT_MAJOR_VERSION), 3
     ) != 0) {
         // puts(c.SDL_GetError() ?? return error.SdlError);
         printf("failed to set gles 2\n");
