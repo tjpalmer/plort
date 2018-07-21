@@ -1,15 +1,25 @@
 func create_shader(type: GLenum, source: char const*): GLuint {
-	shader := glCreateShader(type);
-	if (!shader) {
-		return 0;
-	}
-	sizes: GLint = strlen(source);
-	glShaderSource(shader, 1, &source, &sizes);
-	glCompileShader(shader);
-	is_compiled: GLint;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &is_compiled);
-	if (!is_compiled) {
-		return 0;
-	}
-	return shader;
+    shader := glCreateShader(type);
+    if (!shader) {
+        return 0;
+    }
+    sizes: GLint = strlen(source);
+    glShaderSource(shader, 1, &source, &sizes);
+    glCompileShader(shader);
+    is_compiled: GLint;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &is_compiled);
+    if (!is_compiled) {
+        return 0;
+    }
+    return shader;
+}
+
+func link_program(program: GLuint) {
+    glLinkProgram(program);
+    is_linked: GLint;
+    glGetProgramiv(program, GL_LINK_STATUS, &is_linked);
+    // printf("linked?\n");
+    if (!is_linked) {
+        printf("no link for us\n");
+    }
 }

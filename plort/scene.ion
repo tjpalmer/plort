@@ -9,6 +9,9 @@ func build_scene() {
 		printf("no shaders for us\n");
 	}
 	// printf("p: %u, s: %u, %u\n", program, fragment_shader, vertex_shader);
+	glAttachShader(program, fragment_shader);
+	glAttachShader(program, vertex_shader);
+	link_program(program);
 }
 
 var fragment_source = """

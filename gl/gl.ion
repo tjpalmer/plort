@@ -11,12 +11,16 @@
 @foreign const GL_COLOR_BUFFER_BIT = 0x00004000;
 @foreign const GL_COMPILE_STATUS = 0x8B81;
 @foreign const GL_FRAGMENT_SHADER = 0x8B30;
+@foreign const GL_LINK_STATUS = 0x8B82;
 @foreign const GL_VERTEX_SHADER = 0x8B31;
 
+@foreign func glAttachShader(program: GLuint, shader: GLuint);
 @foreign func glClear(mask: GLbitfield);
 @foreign func glClearColor(red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat);
 @foreign func glCompileShader(shader: GLuint);
 @foreign func glCreateProgram(): GLuint;
 @foreign func glCreateShader(type: GLenum): GLuint;
+@foreign func glGetProgramiv(program: GLuint, pname: GLenum, params: GLint*);
 @foreign func glGetShaderiv(shader: GLuint, pname: GLenum, params: GLint*);
+@foreign func glLinkProgram(program: GLuint);
 @foreign func glShaderSource(shader: GLuint, count: GLsizei, string: GLchar const* const*, length: GLint const*);
