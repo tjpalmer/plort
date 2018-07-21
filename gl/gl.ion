@@ -1,5 +1,9 @@
-@foreign
-typedef GLuint = uint;
+@foreign typedef GLbitfield = uint;
+@foreign typedef GLfloat = float;
+@foreign typedef GLuint = uint;
 
-@foreign
-func glCreateProgram(): GLuint;
+@foreign const GL_COLOR_BUFFER_BIT = 0x00004000;
+
+@foreign func glClear(mask: GLbitfield);
+@foreign func glClearColor(red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat);
+@foreign func glCreateProgram(): GLuint;

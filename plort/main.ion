@@ -1,7 +1,7 @@
 import libc {printf}
 import gl {...}
 import sdl {...}
-// #foreign(header = "<GLES3/gl3.h>")
+#foreign(header = "<GLES3/gl3.h>")
 
 func main(argc: int, argv: char**): int {
     printf("Hello, world!\n");
@@ -23,9 +23,17 @@ func main(argc: int, argv: char**): int {
     if (!program) {
         printf("no program for us\n");
     }
+    // Seems like we need two paint calls starting out?
+    paint(window);
+    // Main loop.
     event: SDL_Event;
     done := false;
+    dirty := true;
     while (!done) {
+        if (dirty) {
+            paint(window);
+            dirty = false;
+        }
         if (SDL_WaitEvent(&event)) {
             switch (event.type) {
             case SDL_QUIT:
@@ -33,13 +41,12 @@ func main(argc: int, argv: char**): int {
             case SDL_WINDOWEVENT:
                 switch (event.window.event) {
                 case SDL_WINDOWEVENT_RESIZED:
+                    dirty = true;
                     // printf("resize\n");
                 }
             }
         }
-        // TODO Timer.
-        // TODO Animate.
-        // paint(window);
+        // TODO Timer?
     }
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
@@ -75,4 +82,11 @@ func initGles3() {
     //     // puts(c.SDL_GetError() ?? return error.SdlError);
     //     return error.SdlError;
     // }
+}
+
+func paint(window: SDL_Window*) {
+    // printf("paint\n");
+    glClearColor(0, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+    SDL_GL_SwapWindow(window);
 }
