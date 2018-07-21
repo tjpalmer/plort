@@ -1,0 +1,29 @@
+func build_scene() {
+	program := glCreateProgram();
+	if (!program) {
+			printf("no program for us\n");
+	}
+	fragment_shader := create_shader(GL_FRAGMENT_SHADER, fragment_source);
+	vertex_shader := create_shader(GL_VERTEX_SHADER, vertex_source);
+	if (!(fragment_shader && vertex_shader)) {
+		printf("no shaders for us\n");
+	}
+	// printf("p: %u, s: %u, %u\n", program, fragment_shader, vertex_shader);
+}
+
+var fragment_source = """
+void main() {
+  // TODO Lighting.
+  gl_FragColor = vec4(1, 1, 0, 1);
+}
+""";
+
+var vertex_source = """
+uniform mat4 view;
+
+attribute vec3 position;
+
+void main(void) {
+  gl_Position = view * vec4(position, 1.0);
+}
+""";

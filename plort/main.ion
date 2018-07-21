@@ -1,4 +1,4 @@
-import libc {printf}
+import libc {...}
 import gl {...}
 import sdl {...}
 
@@ -7,7 +7,7 @@ func main(argc: int, argv: char**): int {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("failed to init sdl: %s\n", SDL_GetError());
     }
-    initGles3();
+    init_gles3();
     window := SDL_CreateWindow(
         "Hello",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -18,10 +18,7 @@ func main(argc: int, argv: char**): int {
     if (!context) {
         printf("no context for us\n");
     }
-    program := glCreateProgram();
-    if (!program) {
-        printf("no program for us\n");
-    }
+    build_scene();
     // Seems like we need two paint calls starting out?
     paint(window);
     // Main loop.
@@ -54,7 +51,7 @@ func main(argc: int, argv: char**): int {
     return 0;
 }
 
-func initGles3() {
+func init_gles3() {
     // if (c.SDL_SetHint(c.SDL_HINT_OPENGL_ES_DRIVER, c"1") == 0) {
     //     warn("won't take a hint\n");
     //     return error.SdlError;

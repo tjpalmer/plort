@@ -1,0 +1,15 @@
+func create_shader(type: GLenum, source: char const*): GLuint {
+	shader := glCreateShader(type);
+	if (!shader) {
+		return 0;
+	}
+	sizes: GLint = strlen(source);
+	glShaderSource(shader, 1, &source, &sizes);
+	glCompileShader(shader);
+	is_compiled: GLint;
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &is_compiled);
+	if (!is_compiled) {
+		return 0;
+	}
+	return shader;
+}
