@@ -1,3 +1,5 @@
+#foreign(header = "<GLES3/gl3.h>")
+
 @foreign typedef GLbitfield = uint;
 @foreign typedef GLfloat = float;
 @foreign typedef GLuint = uint;

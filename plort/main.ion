@@ -1,7 +1,6 @@
 import libc {printf}
 import gl {...}
 import sdl {...}
-#foreign(header = "<GLES3/gl3.h>")
 
 func main(argc: int, argv: char**): int {
     printf("Hello, world!\n");
