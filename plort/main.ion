@@ -79,10 +79,3 @@ func init_gles3() {
     //     return error.SdlError;
     // }
 }
-
-func paint(window: SDL_Window*) {
-    // printf("paint\n");
-    glClearColor(0, 0, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
-    SDL_GL_SwapWindow(window);
-}

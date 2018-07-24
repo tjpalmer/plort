@@ -5,22 +5,32 @@
 @foreign typedef GLenum = uint;
 @foreign typedef GLfloat = float;
 @foreign typedef GLint = int;
+@foreign typedef GLsizeiptr = ssize;
 @foreign typedef GLsizei = int;
 @foreign typedef GLuint = uint;
 
+@foreign const GL_ARRAY_BUFFER = 0x8892;
 @foreign const GL_COLOR_BUFFER_BIT = 0x00004000;
 @foreign const GL_COMPILE_STATUS = 0x8B81;
 @foreign const GL_FRAGMENT_SHADER = 0x8B30;
 @foreign const GL_LINK_STATUS = 0x8B82;
+@foreign const GL_STATIC_DRAW = 0x88E4;
 @foreign const GL_VERTEX_SHADER = 0x8B31;
 
 @foreign func glAttachShader(program: GLuint, shader: GLuint);
+@foreign func glBindAttribLocation(program: GLuint, index: GLuint, name: GLchar const*);
+@foreign func glBindBuffer(target: GLenum, buffer: GLuint);
+@foreign func glBufferData(target: GLenum, size: GLsizeiptr, data: void const*, usage: GLenum);
 @foreign func glClear(mask: GLbitfield);
 @foreign func glClearColor(red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat);
 @foreign func glCompileShader(shader: GLuint);
 @foreign func glCreateProgram(): GLuint;
 @foreign func glCreateShader(type: GLenum): GLuint;
+@foreign func glEnableVertexAttribArray(index: GLuint);
+@foreign func glGenBuffers(n: GLsizei, buffers: GLuint*);
 @foreign func glGetProgramiv(program: GLuint, pname: GLenum, params: GLint*);
 @foreign func glGetShaderiv(shader: GLuint, pname: GLenum, params: GLint*);
+@foreign func glGetUniformLocation(program: GLuint, name: GLchar const*): GLint;
 @foreign func glLinkProgram(program: GLuint);
 @foreign func glShaderSource(shader: GLuint, count: GLsizei, string: GLchar const* const*, length: GLint const*);
+@foreign func glUseProgram(program: GLuint);

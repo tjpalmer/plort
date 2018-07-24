@@ -1,25 +1,50 @@
+enum Attrib {
+    ATTRIB_POSITION,
+}
+
 func build_scene() {
-	program := glCreateProgram();
-	if (!program) {
-			printf("no program for us\n");
-	}
-	fragment_shader := create_shader(GL_FRAGMENT_SHADER, fragment_source);
-	vertex_shader := create_shader(GL_VERTEX_SHADER, vertex_source);
-	if (!(fragment_shader && vertex_shader)) {
-		printf("no shaders for us\n");
-	}
-	// printf("p: %u, s: %u, %u\n", program, fragment_shader, vertex_shader);
-	glAttachShader(program, fragment_shader);
-	glAttachShader(program, vertex_shader);
-	link_program(program);
+    program := glCreateProgram();
+    if (!program) {
+        printf("no program for us\n");
+    }
+    fragment_shader := create_shader(GL_FRAGMENT_SHADER, fragment_source);
+    vertex_shader := create_shader(GL_VERTEX_SHADER, vertex_source);
+    if (!(fragment_shader && vertex_shader)) {
+        printf("no shaders for us\n");
+    }
+    // printf("p: %u, s: %u, %u\n", program, fragment_shader, vertex_shader);
+    glBindAttribLocation(program, ATTRIB_POSITION, "position");
+    glAttachShader(program, fragment_shader);
+    glAttachShader(program, vertex_shader);
+    link_program(program);
+    glUseProgram(program);
+    view_uniform = glGetUniformLocation(program, "view");
+    glEnableVertexAttribArray(ATTRIB_POSITION);
+    buffer: GLuint;
+    glGenBuffers(1, &buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
 }
 
 var fragment_source = """
 void main() {
-  // TODO Lighting.
-  gl_FragColor = vec4(1, 1, 0, 1);
+    // TODO Lighting.
+    gl_FragColor = vec4(1, 1, 0, 1);
 }
 """;
+
+func paint(window: SDL_Window*) {
+    // printf("paint\n");
+    glClearColor(0, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+    SDL_GL_SwapWindow(window);
+}
+
+var positions = (:float[]) {
+    -0.5, -0.5, 0.0,
+    0.0, 0.5, 0.0,
+    0.5, -0.5, 0.0,
+};
 
 var vertex_source = """
 uniform mat4 view;
@@ -27,6 +52,8 @@ uniform mat4 view;
 attribute vec3 position;
 
 void main(void) {
-  gl_Position = view * vec4(position, 1.0);
+    gl_Position = view * vec4(position, 1.0);
 }
 """;
+
+var view_uniform: GLint;
