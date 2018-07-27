@@ -20,9 +20,8 @@ func build_scene() {
     glUseProgram(program);
     view_uniform = glGetUniformLocation(program, "view");
     glEnableVertexAttribArray(ATTRIB_POSITION);
-    buffer: GLuint;
-    glGenBuffers(1, &buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    glGenBuffers(1, &position_buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, position_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
 }
 
@@ -37,8 +36,24 @@ func paint(window: SDL_Window*) {
     // printf("paint\n");
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
+    view := (:float[]) {
+        // Just hack in a wrong transform spot for now to make sure it's
+        // getting compiled in.
+        // TODO Correct use of transforms.
+        1 /*ratios[0]*/, 0, 0, 0 /*transform.values[0]*/,
+        0, 1 /*ratios[1]*/, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1,
+    };
+    glUniformMatrix4fv(view_uniform, 1, true, view);
+    // Draw.
+    glBindBuffer(GL_ARRAY_BUFFER, position_buffer);
+    glVertexAttribPointer(ATTRIB_POSITION, 3, GL_FLOAT, false, 0, 0);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
     SDL_GL_SwapWindow(window);
 }
+
+var position_buffer: GLuint;
 
 var positions = (:float[]) {
     -0.5, -0.5, 0.0,
