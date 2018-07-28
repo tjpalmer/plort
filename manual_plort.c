@@ -21,7 +21,10 @@ int main(int argc, char **argv) {
         printf("failed to init sdl: %s\n", SDL_GetError());
     }
     plort_init_gles3();
-    SDL_Window *window = SDL_CreateWindow("Hello", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+    SDL_Window *window = SDL_CreateWindow(
+        "Hello", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600,
+        SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
+    );
     void *context = SDL_GL_CreateContext(window);
     if (!context) {
         printf("no context for us\n");
@@ -62,7 +65,9 @@ int main(int argc, char **argv) {
 }
 
 void plort_init_gles3(void) {
-    if (SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES)) {
+    if (SDL_GL_SetAttribute(
+        SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES
+    )) {
         printf("failed to set gles\n");
     }
     if (SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3)) {
@@ -75,8 +80,10 @@ void plort_build_scene(void) {
     if (!program) {
         printf("no program for us\n");
     }
-    GLuint fragment_shader = plort_create_shader(GL_FRAGMENT_SHADER, plort_fragment_source);
-    GLuint vertex_shader = plort_create_shader(GL_VERTEX_SHADER, plort_vertex_source);
+    GLuint fragment_shader =
+        plort_create_shader(GL_FRAGMENT_SHADER, plort_fragment_source);
+    GLuint vertex_shader =
+        plort_create_shader(GL_VERTEX_SHADER, plort_vertex_source);
     if (!(fragment_shader && vertex_shader)) {
         printf("no shaders for us\n");
     }
@@ -88,7 +95,9 @@ void plort_build_scene(void) {
     glEnableVertexAttribArray(PLORT_ATTRIB_POSITION);
     glGenBuffers(1, &plort_position_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, plort_position_buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(plort_positions), plort_positions, GL_STATIC_DRAW);
+    glBufferData(
+        GL_ARRAY_BUFFER, sizeof(plort_positions), plort_positions,
+        GL_STATIC_DRAW);
 }
 
 void plort_paint(SDL_Window *window) {
