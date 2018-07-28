@@ -27,21 +27,26 @@ func build_scene() {
 
 var fragment_source = """
 void main() {
-    // TODO Lighting.
     gl_FragColor = vec4(1, 1, 0, 1);
 }
 """;
 
 func paint(window: SDL_Window*) {
-    // printf("paint\n");
+    // size_x: int;
+    // size_y: int;
+    // SDL_GL_GetDrawableSize(window, &size_x, &size_y);
+    // printf("size: [%d, %d]\n", size_x, size_y);
+    // glViewport(0, 0, size_x, size_y);
+    // ratio_x := size_x < size_y ? 1 : size_x / float(size_y);
+    // ratio_y := size_x > size_y ? 1 : size_y / float(size_x);
+    // printf("ratios: [%g, %g]\n", ratio_x, ratio_y);
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     view := (:float[]) {
-        // Just hack in a wrong transform spot for now to make sure it's
-        // getting compiled in.
-        // TODO Correct use of transforms.
-        1 /*ratios[0]*/, 0, 0, 0 /*transform.values[0]*/,
-        0, 1 /*ratios[1]*/, 0, 0,
+        // ratio_x, 0, 0, 0,
+        // 0, ratio_y, 0, 0,
+        1, 0, 0, 0,
+        0, 1, 0, 0,
         0, 0, 1, 0,
         0, 0, 0, 1,
     };

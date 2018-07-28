@@ -40,3 +40,4 @@
 @foreign func glUniformMatrix4fv(location: GLint, count: GLsizei, transpose: GLboolean, value: GLfloat const*);
 @foreign func glUseProgram(program: GLuint);
 @foreign func glVertexAttribPointer(index: GLuint, size: GLint, type: GLenum, normalized: GLboolean, stride: GLsizei, pointer: void const*);
+@foreign func glViewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei);
