@@ -59,16 +59,16 @@ func init_gles3() {
     if (SDL_GL_SetAttribute(
         SDL_GLattr(SDL_GL_CONTEXT_PROFILE_MASK),
         SDL_GL_CONTEXT_PROFILE_ES
-    ) != 0) {
+    )) {
         // puts(c.SDL_GetError() ?? return error.SdlError);
         printf("failed to set gles\n");
     }
     if (SDL_GL_SetAttribute(
         // TODO Why doesn't GLES 2 work?
         SDL_GLattr(SDL_GL_CONTEXT_MAJOR_VERSION), 3
-    ) != 0) {
+    )) {
         // puts(c.SDL_GetError() ?? return error.SdlError);
-        printf("failed to set gles 2\n");
+        printf("failed to set gles 3\n");
     }
     // ANGLE doesn't claim to support 3.1 yet on desktop gl, but asking for 3.0
     // here also fails for me at the moment, so just don't say.
